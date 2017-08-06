@@ -31,6 +31,6 @@ if __name__ == "__main__":
   t = toArray(plain)
   print repeatKey("ICE",plain)
   # print t
-  a = repeatKeyEnc("ICE",t)
-  print a
-  print repeatKeyEnc("ICE",a)
+  # a = repeatKeyEnc("ICE",t)
+  # print a
+  # print repeatKeyEnc("ICE",a)

@@ -22,8 +22,6 @@ def parseHex(instring):
 def printHex(vals):
   for elt in vals:
     print elt, chr(int(elt,16))
-    # print "hi"
-    # print chr(int(elt,16)),
   print ".\n---"
 
 def singleXOR(key,l):
@@ -39,6 +37,21 @@ def singleXOR(key,l):
   # print ".\n-----"
   return t, s
 
+def bruteForceSingleXOR(l):
+  maxkey = 0
+  maxscore = 0
+  for k in xrange(256):
+    t,res = singleXOR(k,l)
+    if t:
+      sc = score(res)
+      if sc > maxscore:
+        maxkey = k
+        maxscore = sc
+  return maxkey
+  # def key(p):
+  #       return score(p[1])
+  # return max([(i, strxor_c(s, i)) for i in range(0, 256)], key=key)
+
 def score(s):
   tot = 0
   # print s, len(s)
@@ -48,22 +61,15 @@ def score(s):
   return tot
 
 if __name__ == "__main__":
-  # t1 = txt[12]
-  # v1 = parseHex(t1)
-
-  # txt[0] = '1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736'
-
   f = open('4.txt','r')
   txt = []
   for line in f:
-    # print line,
     txt.append(line) #in str format
   f.close()
 
   txt2 = []
   for t in txt:
     t1 = parseHex(t)
-    # print len(t1)
     txt2.append(t1)
   print len(txt2)
 
@@ -71,22 +77,18 @@ if __name__ == "__main__":
   bestStr = ""
 
   for l in xrange(len(txt2)):
-    # print txt[l][:-1]
     for k in xrange(128):
       t, res = singleXOR(k,txt2[l])
       if t:
-        # print l, k, res
         sc = score(res)
         if sc > bestSc:
           bestSc = sc
           bestStr = res
-      # print l, k, res
   print bestStr
 
-  # print v1
-  # for elt in v1:
-  #   i1 = int(elt,16)
-  #   print elt#, chr(i1)
+  for l in xrange(len(txt2)):
+    print bruteForceSingleXOR(txt2[l]),
+
 
 
 # import c3
